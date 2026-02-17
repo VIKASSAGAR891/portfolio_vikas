@@ -60,7 +60,7 @@ export function Thumbnail() {
           View
         </ThumbnailCursorLabel>
         <ThumbnailAction>
-          More work<sup className='text-muted-foreground'>14</sup>
+          More Projects<sup className='text-muted-foreground'></sup>
         </ThumbnailAction>
       </div>
     </section>

@@ -2,8 +2,8 @@
 
 import { motion } from 'framer-motion';
 import { ArrowDownLeft } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
-import { CldImage } from 'next-cloudinary';
 
 import { MagneticButton } from '@/components';
 
@@ -18,16 +18,17 @@ export function UserDetails({ transformX }) {
     <Container>
       <Row>
         <div className='flex items-center gap-8'>
-          <ImageWrapper>
-            <CldImage
-              src='Dennis-Portfolio/images/mqtwxh5znybowgaljrbp'
+          <ImageWrapper className='relative size-20'>
+            <Image
+              src='/profile.jpg' // 👈 your image
+              alt='Vikas Sagar Profile Picture'
+              fill
               className='rounded-full object-cover'
-              fill={true}
-              alt='Dennis Snellenberg Profile Picture'
             />
           </ImageWrapper>
           <MainTitle>Let’s work</MainTitle>
         </div>
+
         <div className='flex items-center justify-between'>
           <MainTitle>together</MainTitle>
           <div>
@@ -38,10 +39,10 @@ export function UserDetails({ transformX }) {
 
       <Row>
         <div className='relative w-full'>
-          <div className='h-[1px] bg-muted-foreground' />
+          <div className='h-px bg-muted-foreground' />
           <div className='absolute right-0 top-0 z-20 -translate-x-1/2 -translate-y-1/2'>
             <motion.div style={{ x: transformX }}>
-              <Link href='/contact' passHref>
+              <Link href='/contact'>
                 <MagneticButton variant='primary' size='lg'>
                   Get in touch
                 </MagneticButton>
@@ -54,24 +55,24 @@ export function UserDetails({ transformX }) {
       <Row>
         <div className='flex w-full flex-col gap-4 lg:flex-row'>
           <div>
-            <a href='mailto:info@dennissnellenberg.com'>
+            <a href='mailto:vikassagar891@gmail.com'>
               <MagneticButton
                 variant='outline'
                 size='md'
                 className='w-full border-muted-foreground'
               >
-                info@dennissnellenberg.com
+                vikassagar891@gmail.com
               </MagneticButton>
             </a>
           </div>
           <div>
-            <a href='tel:+31627847430'>
+            <a href='tel:+91 7382149073'>
               <MagneticButton
                 variant='outline'
                 size='md'
                 className='w-full border-muted-foreground'
               >
-                +31 6 27 84 74 30
+                +91 7382149073
               </MagneticButton>
             </a>
           </div>
