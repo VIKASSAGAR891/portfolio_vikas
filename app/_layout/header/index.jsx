@@ -27,7 +27,7 @@ export function Header() {
 
       <div className='absolute inset-0 bg-black/10' />
 
-      <div className='relative flex h-full flex-col justify-end gap-2 md:flex-col-reverse md:justify-normal'>
+      <div className='relative flex h-full flex-col justify-end gap-2 md:flex-col-reverse md:justify-start'>
         <div className='select-none'>
           <h1 className='text-[max(9em,15vw)]'>
             <ParallaxSlider repeat={4} baseVelocity={2}>

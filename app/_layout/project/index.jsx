@@ -28,12 +28,12 @@ export function Project() {
 
   return (
     <section ref={containerRef} className='relative z-10 mt-14'>
-      <div className='grid items-center'>
+      <div className='relative'>
         <div className='bg-background'>
           <motion.div
-            className='mb-10 flex gap-10'
+            className='mb-10 flex gap-10 justify-start'
             style={{
-              width: '120vw',
+              width: '90vw',
               x: transformX1,
             }}
           >
@@ -41,9 +41,9 @@ export function Project() {
           </motion.div>
 
           <motion.div
-            className='mb-10 flex gap-10'
+            className='mb-10 flex gap-10 justify-end'
             style={{
-              width: '120vw',
+              width: '90vw',
               x: transformX2,
             }}
           >
@@ -52,7 +52,7 @@ export function Project() {
         </div>
 
         <motion.div
-          className='w-screen bg-background'
+          className='grid items-center w-screen bg-background'
           style={{
             height: transformY,
             borderRadius: '0 0 50% 50%',

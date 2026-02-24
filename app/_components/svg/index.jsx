@@ -1,4 +1,6 @@
-function child({ name = '', ...props }) {
+'use client';
+
+function SvgChild({ name = '', ...props }) {
   switch (name) {
     case 'Circle':
       return <circle {...props} />;
@@ -10,8 +12,6 @@ function child({ name = '', ...props }) {
       return <path {...props} />;
   }
 }
-
-Svg.Child = child;
 
 export function Svg({
   id,
@@ -37,3 +37,5 @@ export function Svg({
     </svg>
   );
 }
+
+Svg.Child = SvgChild;

@@ -15,7 +15,7 @@ export const ThumbnailCursorCircle = forwardRef(
    */
   function ThumbnailCursorCircle({ variants, active, ...props }, ref) {
     return (
-      <MotionComponent
+      <motion.div
         ref={ref}
         className='bg-primary'
         variants={variants}
@@ -34,7 +34,7 @@ export const ThumbnailCursorLabel = forwardRef(
    */
   function ThumbnailCursorLabel({ variants, active, ...props }, ref) {
     return (
-      <MotionComponent
+      <motion.div
         ref={ref}
         variants={variants}
         initial='initial'

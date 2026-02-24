@@ -7,4 +7,4 @@ const tailwindConfig = {
   plugins: [tailwindPlugin, animatePlugin],
 };
 
-module.exports = tailwindConfig;
+export default tailwindConfig;

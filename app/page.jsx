@@ -2,7 +2,6 @@ import {
   Contact,
   Description,
   Header,
-  Navbar,
   Project,
   Thumbnail,
   Transition,
@@ -18,7 +17,6 @@ export const metadata = {
 export default function Home() {
   return (
     <Transition>
-      <Navbar />
       <Header />
       <main>
         <Description />

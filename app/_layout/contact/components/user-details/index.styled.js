@@ -2,38 +2,59 @@
 
 import { styled } from 'styled-components';
 
-const containerValue = ({ theme }) => theme?.breakpoints?.container;
-
 export const Container = styled.div`
-  padding-inline: calc(clamp(2.5em, 8vw, 8em) * 2);
-  margin-inline: auto;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
 
-  @media screen and (min-width: ${containerValue}) {
-    max-width: ${containerValue};
+  @media (min-width: 640px) {
+    padding: 0 1.5rem;
+  }
+
+  @media (min-width: 1024px) {
+    padding: 0 2rem;
   }
 `;
 
 export const Row = styled.div`
-  --default-padding: clamp(5em, 21vh, 12em);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 3rem;
 
-  &:nth-child(1) {
-    padding-block-end: calc(var(--default-padding) / 2);
+  &:last-child {
+    margin-bottom: 0;
   }
 
-  &:nth-child(2) {
-    padding-block-end: calc(var(--default-padding) * 0.5);
+  @media (min-width: 768px) {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3rem;
   }
 `;
 
 export const ImageWrapper = styled.div`
-  --image-size: clamp(4.5em, 6.5vw, 8em);
-
   position: relative;
-  width: var(--image-size);
-  height: var(--image-size);
+  width: 5rem;
+  height: 5rem;
+  flex-shrink: 0;
+
+  @media (min-width: 640px) {
+    width: 6rem;
+    height: 6rem;
+  }
+
+  @media (min-width: 1024px) {
+    width: 8rem;
+    height: 8rem;
+  }
 `;
 
 export const MainTitle = styled.h2`
-  font-size: calc(clamp(3.25em, 7vw, 8em) * 0.875);
+  font-size: clamp(2.5rem, 5vw, 4rem);
   line-height: 1.1;
+  font-weight: 600;
+  margin: 0;
 `;

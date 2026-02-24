@@ -8,7 +8,7 @@ export const socialMedias = [
     title: 'LinkedIn',
   },
   {
-    href: 'https://www.instagram.com/vikassagar891/',
+    href: 'https://www.instagram.com/vikassagar_891/',
     title: 'Instagram',
   },
 ];

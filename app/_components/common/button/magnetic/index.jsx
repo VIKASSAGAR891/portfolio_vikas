@@ -10,15 +10,18 @@ import { cn } from '@/utils';
 import { MagneticItem } from './index.styled';
 import { magneticVariance } from './index.variance';
 
-/** @param {import('react').ButtonHTMLAttributes<HTMLButtonElement> & { variant: 'default' | 'primary' | 'destructive' | 'secondary' | 'ghost' | 'outline'; size: 'default' | 'md' | 'lg' | 'xl';}} */
+/** @param {import('react').ButtonHTMLAttributes<HTMLButtonElement> & { variant: 'default' | 'primary' | 'destructive' | 'secondary' | 'ghost' | 'outline'; size: 'default' | 'md' | 'lg' | 'xl'; href?: string; target?: string; rel?: string;}} */
 export function MagneticButton({
   children,
   className,
   variant,
   size,
+  href,
+  target,
+  rel,
   ...props
 }) {
-  /** @type {import('react').MutableRefObject<HTMLButtonElement>} */
+  /** @type {import('react').MutableRefObject<HTMLButtonElement | HTMLAnchorElement>} */
   const elementRef = useRef(null);
   const {
     position: { x, y },
@@ -26,20 +29,38 @@ export function MagneticButton({
     handleMagneticOut,
   } = useMagnetic(elementRef);
 
+  const commonProps = {
+    ref: elementRef,
+    className: cn(magneticVariance({ variant, size, className })),
+    animate: { x, y },
+    transition: {
+      type: 'spring',
+      damping: 15,
+      stiffness: 150,
+      mass: 0.1,
+    },
+    onPointerMove: handleMagneticMove,
+    onPointerOut: handleMagneticOut,
+    whileHover: { scale: 1.1 },
+  };
+
+  if (href) {
+    return (
+      <motion.a
+        href={href}
+        target={target}
+        rel={rel}
+        {...commonProps}
+        {...props}
+      >
+        <MagneticItem>{children}</MagneticItem>
+      </motion.a>
+    );
+  }
+
   return (
     <motion.button
-      ref={elementRef}
-      className={cn(magneticVariance({ variant, size, className }))}
-      animate={{ x, y }}
-      transition={{
-        type: 'spring',
-        damping: 15,
-        stiffness: 150,
-        mass: 0.1,
-      }}
-      onPointerMove={handleMagneticMove}
-      onPointerOut={handleMagneticOut}
-      whileHover={{ scale: 1.1 }}
+      {...commonProps}
       {...props}
     >
       <MagneticItem>{children}</MagneticItem>

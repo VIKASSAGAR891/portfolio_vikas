@@ -15,7 +15,7 @@ export function ProjectSlider({ type, source }) {
       className='relative w-1/4 overflow-hidden rounded'
       style={{
         minWidth: '150px',
-        height: '20vw',
+        height: '15vw',
       }}
     >
       <Image

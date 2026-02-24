@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Balancer from 'react-wrap-balancer';
@@ -8,54 +9,86 @@ import { MagneticButton, ParallaxFade, ParallaxReveal } from '@/components';
 
 import { Title, Wrapper } from './index.styled';
 
-const phrase = `👋 Hey! I'm Vikas — an AI & Machine Learning engineer currently pursuing a Bachelor of Engineering in Artificial Intelligence & Machine Learning at Chandigarh University (CU '27).
+const phrase = `I enjoy building intelligent systems that solve real-world problems.
 
-I build data-driven, scalable and ethical AI systems that solve real-world problems. With a strong foundation in Python, C++, and modern data science libraries, I enjoy turning complex ideas into intelligent, practical solutions.
-
-Alongside AI, I work as a full stack developer — building complete digital products from backend logic to intuitive user interfaces.
-
-I thrive on experimentation, rapid learning, and collaborative environments where innovation meets impact.`;
+Experimenting with data, learning rapidly, and turning complex ideas into scalable digital solutions.`;
 
 export function Description() {
+  const [scrollY, setScrollY] = useState(0);
+  const [sectionBounds, setSectionBounds] = useState({ top: 0, bottom: 0 });
+  const articleRef = useRef(null);
+
+  useEffect(() => {
+    const updateSectionBounds = () => {
+      if (articleRef.current) {
+        const rect = articleRef.current.getBoundingClientRect();
+        setSectionBounds({
+          top: window.scrollY + rect.top,
+          bottom: window.scrollY + rect.bottom,
+        });
+      }
+    };
+
+    updateSectionBounds();
+    window.addEventListener('resize', updateSectionBounds);
+    return () => window.removeEventListener('resize', updateSectionBounds);
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScroll = window.scrollY;
+      const sectionTop = sectionBounds.top;
+      const sectionHeight = sectionBounds.bottom - sectionBounds.top;
+      
+      // Only apply movement when within the section
+      if (currentScroll >= sectionTop && currentScroll <= sectionBounds.bottom) {
+        const relativeScroll = currentScroll - sectionTop;
+        const maxMovement = sectionHeight * 0.15; // Limit movement to 15% of section height
+        const movement = Math.min(relativeScroll * 0.3, maxMovement);
+        setScrollY(movement);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [sectionBounds]);
+
   return (
-    <article className='container relative py-20'>
-      <Wrapper>
-        {/* Main Description */}
-        <div className='basis-full lg:basis-9/12'>
-          <Title>
-            <ParallaxReveal paragraph={phrase} />
-          </Title>
-        </div>
-
-        {/* Side Supporting Text */}
-        <div className='basis-7/12 lg:basis-3/12'>
-          <ParallaxFade>
-            <Balancer
-              as='p'
-              className='mt-4 text-base text-muted-foreground lg:text-lg'
-            >
-              Combining intelligent systems, scalable software engineering, and
-              thoughtful user experiences allows me to build complete AI-driven
-              digital solutions.
-            </Balancer>
-          </ParallaxFade>
-        </div>
-
-        {/* About Button */}
-        <motion.div
-          whileInView={{ y: '-15%' }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
-          <div className='absolute right-0 top-3/4 lg:top-full lg:me-10'>
-            <Link href='/about'>
-              <MagneticButton variant='ghost' size='xl'>
-                About Me
-              </MagneticButton>
-            </Link>
+    <article 
+      ref={articleRef}
+      className='container relative py-10'
+    >
+      <div>
+        <div className='grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-6'>
+          {/* Main Description */}
+          <div className='lg:col-span-9'>
+            <Title>
+              <ParallaxReveal paragraph={phrase} />
+            </Title>
           </div>
-        </motion.div>
-      </Wrapper>
+
+          {/* Side Supporting Text */}
+          <div className='lg:col-span-3 flex flex-col gap-16'>
+            <ParallaxFade delay={0.2}>
+              <div className='mt-4 text-sm text-muted-foreground lg:text-base'>
+                Combining intelligent systems, scalable software engineering, and
+                thoughtful user experiences allows me to build complete AI-driven
+                digital solutions.
+              </div>
+            </ParallaxFade>
+            <motion.div
+              animate={{ y: scrollY }}
+              transition={{ type: 'spring', stiffness: 100, damping: 20 }}
+            >
+              <Link href='/about'>
+                <MagneticButton variant='ghost' size='xl'>
+                  About Me
+                </MagneticButton>
+              </Link>
+            </motion.div>
+          </div>
+        </div>
+      </div>
     </article>
   );
 }

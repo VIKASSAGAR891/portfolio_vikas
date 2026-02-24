@@ -16,12 +16,14 @@ export function Contact() {
   return (
     <motion.footer
       ref={containerRef}
-      className='relative max-h-screen bg-foreground text-background'
+      className='relative min-h-screen bg-foreground text-background flex items-center justify-center'
       style={{ y: transformY }}
     >
-      <div style={{ paddingBlock: 'clamp(5em, 21vh, 12em)' }}>
-        <UserDetails transformX={transformX} />
-        <SocialInfo />
+      <div className='w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+        <div className='flex flex-col items-center justify-center space-y-16'>
+          <UserDetails transformX={transformX} />
+          <SocialInfo />
+        </div>
       </div>
     </motion.footer>
   );
