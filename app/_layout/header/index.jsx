@@ -22,7 +22,7 @@ export function Header() {
         alt='Vikas Narlakanti'
         fill
         priority
-        className='scale-110 object-cover object-[30%_center]'
+        className='scale-110 object-cover object-[50%_center]'
       />
 
       <div className='absolute inset-0 bg-black/10' />

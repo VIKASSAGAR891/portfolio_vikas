@@ -4,6 +4,7 @@ import { cn } from '@/utils';
 
 import { NavbarBrand } from './brand';
 import { NavbarList } from './list';
+import { MobileNav } from './mobile-nav';
 
 /**
  * Global Navbar Component
@@ -12,12 +13,18 @@ import { NavbarList } from './list';
  * @param {'light' | 'dark' | 'auto'} props.theme - Color theme
  * @param {'normal' | 'compact'} props.size - Size variant
  * @param {string} props.className - Additional classes
+ * @param {boolean} props.mobileIsOpen - Controlled open state for mobile nav
+ * @param {Function} props.onMobileToggle - Callback for mobile nav toggle
+ * @param {boolean} props.hideDefaultHamburger - Hide default hamburger button
  */
 export function Navbar({ 
   variant = 'absolute', 
   theme = 'light',
   size = 'normal',
-  className 
+  className,
+  mobileIsOpen,
+  onMobileToggle,
+  hideDefaultHamburger = false
 }) {
   const positionClasses = {
     absolute: 'absolute inset-x-0 top-0',
@@ -50,6 +57,12 @@ export function Navbar({
       <div className='flex items-center justify-between'>
         <NavbarBrand theme={theme} size={size} />
         <NavbarList theme={theme} size={size} />
+        <MobileNav 
+          theme={theme} 
+          isOpen={mobileIsOpen}
+          onToggle={onMobileToggle}
+          hideDefaultHamburger={hideDefaultHamburger}
+        />
       </div>
     </nav>
   );

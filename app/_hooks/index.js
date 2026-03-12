@@ -1,6 +1,7 @@
 export * from './use-contact-slider';
 export * from './use-dimensions';
 export * from './use-follow-pointer';
+export * from './use-hero-scroll';
 export * from './use-lenis';
 export * from './use-magnetic';
 export * from './use-offcanvas-toggle';

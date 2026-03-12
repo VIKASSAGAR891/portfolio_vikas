@@ -44,5 +44,5 @@ export function NavbarList({ theme = 'light', size = 'normal' }) {
     );
   });
 
-  return <ul className='flex items-center max-lg:hidden'>{items}</ul>;
+  return <ul className='flex items-center max-md:hidden'>{items}</ul>;
 }

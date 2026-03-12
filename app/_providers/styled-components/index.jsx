@@ -1,7 +1,6 @@
 'use client';
 
-import { useState } from 'react';
-
+import { useMemo, useState } from 'react';
 import { useServerInsertedHTML } from 'next/navigation';
 import {
   ServerStyleSheet,
@@ -9,13 +8,15 @@ import {
   ThemeProvider,
 } from 'styled-components';
 
-import { theme } from './theme';
+import { theme as defaultTheme } from './theme';
 
-/** @param {import('react').PropsWithChildren<unknown>} */
+/**
+ * @param {Object} props
+ * @param {import('react').ReactNode} props.children
+ */
 export function StyledComponentsRegistry({ children }) {
-  // Only create stylesheet once with lazy initial state
-  // x-ref: https://reactjs.org/docs/hooks-reference.html#lazy-initial-state
   const [styledComponentsStyleSheet] = useState(() => new ServerStyleSheet());
+  const theme = useMemo(() => defaultTheme, []);
 
   useServerInsertedHTML(() => {
     const styles = styledComponentsStyleSheet.getStyleElement();
@@ -23,8 +24,8 @@ export function StyledComponentsRegistry({ children }) {
     return <>{styles}</>;
   });
 
-  if (typeof window !== 'undefined') return <>{children}</>;
-
+  // StyleSheetManager must wrap children for proper style collection
+  // This ensures all styled-components in the tree are collected consistently
   return (
     <StyleSheetManager sheet={styledComponentsStyleSheet.instance}>
       <ThemeProvider theme={theme}>{children}</ThemeProvider>
