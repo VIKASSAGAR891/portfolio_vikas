@@ -36,22 +36,16 @@ export function Description() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const currentScroll = window.scrollY;
-      const sectionTop = sectionBounds.top;
-      const sectionHeight = sectionBounds.bottom - sectionBounds.top;
-      
-      // Only apply movement when within the section
-      if (currentScroll >= sectionTop && currentScroll <= sectionBounds.bottom) {
-        const relativeScroll = currentScroll - sectionTop;
-        const maxMovement = sectionHeight * 0.15; // Limit movement to 15% of section height
-        const movement = Math.min(relativeScroll * 0.3, maxMovement);
-        setScrollY(movement);
-      }
+      // Check if mobile or desktop
+      const isMobile = window.innerWidth < 768; // md breakpoint
+      const multiplier = isMobile ? 0.02 : 0.15; // Increased to 0.08 for mobile to make upward movement visible
+      const movement = window.scrollY * multiplier;
+      setScrollY(movement);
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [sectionBounds]);
+  }, []);
 
   return (
     <article 
