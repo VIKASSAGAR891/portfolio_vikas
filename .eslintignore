@@ -1,5 +1,4 @@
 # Allowlist 'test.js' in the '.build' folder
-# But do not allow anything else in the '.build' folder to be linted
 !.build
 .build/*
 !.build/test.js
@@ -18,3 +17,8 @@ node_modules
 
 # type declaration files
 *.d.js
+
+# lint-staged / config files (important fix)
+.lintstagedrc.js
+.eslintrc.js
+.eslintrc.cjs
