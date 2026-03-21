@@ -5,12 +5,16 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const buildEslintCommand = filenames =>
-  `next lint --fix --file ${filenames
+  `eslint --fix ${filenames
     .map(f => path.relative(process.cwd(), f))
-    .join(' --file ')}`;
+    .join(' ')}`;
+
 
 export default {
-  '*.{js,jsx}': [buildEslintCommand, 'prettier --write'],
+  'app/**/*.{js,jsx}': ['eslint --fix', 'prettier --write'],
+  'components/**/*.{js,jsx}': ['eslint --fix', 'prettier --write'],
+  'pages/**/*.{js,jsx}': ['eslint --fix', 'prettier --write'],
+
   '*.{css,postcss}': 'stylelint --fix',
   '*.styled.{js,jsx}': 'stylelint --fix',
 };
